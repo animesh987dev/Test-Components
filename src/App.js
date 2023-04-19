@@ -1,18 +1,27 @@
 import NavBar from "./components/NavBar";
-import MobNav from "./components/MobNav";
-import NavBtn from "./components/NavBtn";
+import Hero from "./components/Hero";
+import Backdrop from "./components/Backdrop";
+import Form from "./components/Form";
 import { useState } from "react";
 
 function App() {
-  const [isActive, setIsActive] = useState(false);
-  const stateUpdater = () => {
-    setIsActive(!isActive);
+  const [modal, setModal] = useState(false);
+  const openModal = () => {
+    setModal(!modal);
   };
+
   return (
     <div className="relative">
-      <NavBar></NavBar>
-      <MobNav state={isActive}></MobNav>
-      <NavBtn updater={stateUpdater} state={isActive}></NavBtn>
+      <NavBar toggle={openModal}></NavBar>
+      <Hero></Hero>
+      {modal === true ? (
+        <>
+          <Backdrop toggle={openModal}></Backdrop>
+          <Form toggle={openModal}></Form>
+        </>
+      ) : (
+        ""
+      )}
     </div>
   );
 }
